@@ -1,0 +1,6 @@
+bins/
+target/
+.venv/
+inputs/
+__pycache__/
+.vscode/
