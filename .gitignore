@@ -4,3 +4,4 @@ target/
 inputs/
 __pycache__/
 .vscode/
+.ropeproject/
