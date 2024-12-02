@@ -63,7 +63,7 @@ def parse_args() -> Namespace:
     parser.add_argument("-i", "--get-input", type=int)
     parser.add_argument("-r", "--run", type=int)
 
-    return parser.parse_args(argv)
+    return parser.parse_args(argv[1:])
 
 
 def download_input(day: int) -> None:
@@ -116,6 +116,7 @@ def run(day: int):
 
 def main():
     try:
+        init_check()
         args = parse_args()
         if args.get_input:
             download_input(args.get_input)
