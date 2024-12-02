@@ -2,6 +2,8 @@ bins/
 target/
 .venv/
 inputs/
+inputs
 __pycache__/
 .vscode/
 .ropeproject/
+.env
