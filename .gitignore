@@ -1,8 +1,8 @@
 target/
 .venv/
 inputs/
-python/inputs
-rust/inputs
+./python/inputs
+./rust/inputs
 __pycache__/
 .vscode/
 .ropeproject/
