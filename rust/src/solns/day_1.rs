@@ -5,41 +5,49 @@ use std::iter::zip;
 
 pub fn run() {
     let input = get_input(&1);
-    one_line_soln(&input);
+    attempted_one_line_soln(&input);
     println!();
     normal_soln(&input);
 }
 
-fn one_line_soln(input: &str){
+fn attempted_one_line_soln(input: &str) {
     let (mut v1, mut v2) = input
-    .split("\n")
-    .filter(|line| !line.is_empty())
-    .map(|line| {
-        line.split_whitespace()
-            .map(|x| x.parse::<i32>().unwrap())
-            .collect::<Vec<i32>>()
-    })
-    .map(|v| (v[0], v[1]))
-    .unzip::<i32, i32, Vec<i32>, Vec<i32>>();
-    
+        .split("\n")
+        .filter(|line| !line.is_empty())
+        .map(|line| {
+            line.split_whitespace()
+                .map(|x| x.parse::<i32>().unwrap())
+                .collect::<Vec<i32>>()
+        })
+        .map(|v| (v[0], v[1]))
+        .unzip::<i32, i32, Vec<i32>, Vec<i32>>();
+
     v1.sort();
     v2.sort();
 
     let mut count: HashMap<i32, i32> = HashMap::new();
-    let _ = v1.iter().map(
-        |x|
-        if !count.contains_key(x) {
-            count.insert(*x, v2.iter().filter(|y| x == *y).count() as i32);
-            x
-        } else {
-            x
-        }
-        
-    ).collect::<Vec<&i32>>();
+    let _ = v1
+        .iter()
+        .map(|x| {
+            if !count.contains_key(x) {
+                count.insert(*x, v2.iter().filter(|y| x == *y).count() as i32);
+                x
+            } else {
+                x
+            }
+        })
+        .collect::<Vec<&i32>>();
 
     println!("(Almost) oneline:");
-    println!("Part 1 -  {}", zip(v1.iter(), v2.iter()).fold(0,|acc, (x, y)| acc + (x - y).abs()));
-    println!("Part 2 -  {}", v1.iter().fold(0, |acc, x| acc + (x * count.get(x).unwrap_or(&0))));
+    println!(
+        "Part 1 -  {}",
+        zip(v1.iter(), v2.iter()).fold(0, |acc, (x, y)| acc + (x - y).abs())
+    );
+    println!(
+        "Part 2 -  {}",
+        v1.iter()
+            .fold(0, |acc, x| acc + (x * count.get(x).unwrap_or(&0)))
+    );
 }
 
 fn normal_soln(input: &str) {
@@ -50,14 +58,17 @@ fn normal_soln(input: &str) {
         if line.is_empty() {
             continue;
         }
-        nums = line.split_whitespace().map(|x| x.parse().unwrap()).collect();
+        nums = line
+            .split_whitespace()
+            .map(|x| x.parse().unwrap())
+            .collect();
         if nums.len() != 2 {
             println!("{} - {:?}", line, nums);
         }
         v1.push(nums[0]);
         v2.push(nums[1]);
     }
-    
+
     v1.sort();
     v2.sort();
 
